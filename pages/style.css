@@ -1,0 +1,26 @@
+.list {
+    list-style-type: none;
+    margin: 0; 
+    padding: 0; 
+    display: flex; 
+    justify-content: space-between;
+}
+.list a {
+    text-decoration: none;
+}
+
+.list a:hover {
+    background-color: #27609a;
+}
+.list a:active {
+    background-color: #119e4c;
+    color:#119e4c;
+}
+.list123 {
+    list-style-type: georgian;
+}
+.table {
+    border-color: #27609a;
+    border-width: 5px;
+    border-spacing: 10px;
+}
