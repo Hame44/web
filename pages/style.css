@@ -1,26 +1,188 @@
 .list {
     list-style-type: none;
-    margin: 0; 
-    padding: 0; 
-    display: flex; 
+    margin: 0;
+    padding: 0;
+    display: flex;
     justify-content: space-between;
+    height: 100%;
 }
+
 .list a {
     text-decoration: none;
+    color: white;
+    font-size: larger;
+    transition: color 0.5s ease;
 }
 
 .list a:hover {
-    background-color: #27609a;
+    color: #00C853;
 }
+
 .list a:active {
     background-color: #119e4c;
-    color:#119e4c;
+    color: #119e4c;
 }
+
+.list div:hover a {
+    color: #00C853;
+}
+
 .list123 {
     list-style-type: georgian;
 }
-.table {
-    border-color: #27609a;
-    border-width: 5px;
-    border-spacing: 10px;
+
+
+.list li {
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+    transition: color 0.5s ease;
+}
+
+.list div:hover li {
+    color: #00C853;
+}
+
+
+
+
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    /*min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);*/
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr {
+    background-color: #f3f3f3;
+    font-weight: bold;
+    color: #009879;
+}
+
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+
+
+
+
+body {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+
+
+
+
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    /* Дозволяє переносити елементи на новий рядок */
+    justify-content: space-between;
+    /* Розподіляє простір між елементами */
+    gap: 20px;
+    /* Відстань між квадратами */
+    padding: 20px;
+    /* Відступи всередині контейнера */
+    width: 100%;
+    /* Контейнер займає всю ширину */
+    height: 100%;
+    /* Контейнер займає всю висоту */
+    box-sizing: border-box;
+}
+
+/* Стиль для квадратів */
+.box {
+    width: calc(33.33% - 20px);
+    /* 3 квадрати в ряд з урахуванням gap */
+    height: calc(50% - 20px);
+    /* 2 ряди квадратів з відстанню між ними */
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    /* Сіра рамка */
+    border-radius: 20px;
+    /* Заокруглені кути */
+    box-sizing: border-box;
+}
+
+.container2 {
+    width: calc(55% - 20px);
+    /* 3 квадрати в ряд з урахуванням gap */
+    height: 93%;
+    /* 2 ряди квадратів з відстанню між ними */
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    /* Сіра рамка */
+    border-radius: 20px;
+    /* Заокруглені кути */
+    box-sizing: border-box;
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
+.container02 {
+    width: 97%;
+    /* 3 квадрати в ряд з урахуванням gap */
+    height: calc(60% - 20px);
+    /* 2 ряди квадратів з відстанню між ними */
+    box-sizing: border-box;
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
+.container3 {
+    width: calc(30% - 20px);
+    /* 3 квадрати в ряд з урахуванням gap */
+    height: calc(18% - 20px);
+    /* 2 ряди квадратів з відстанню між ними */
+    box-sizing: border-box;
+    margin-top: 1%;
+    margin-left: 14%;
+    background-color: #00c116;
+    border: 2px solid rgb(182, 180, 180);
+    /* Сіра рамка */
+    border-radius: 20px;
+    /* Заокруглені кути */
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }

@@ -1,6 +1,5 @@
 let textNormal = true;
 
-
 document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('buttonn').addEventListener('click', myFunction);
 });
@@ -10,6 +9,7 @@ function myFunction() {
         document.body.style.fontSize = "smaller";
         textNormal=false;
         document.getElementById("p").innerHTML = "larger";
+
     }
     else {
         document.body.style.fontSize = "larger";
