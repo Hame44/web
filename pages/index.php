@@ -7,26 +7,8 @@
     <title>RickRoll</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        function displayTime() {
-            let now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let seconds = now.getSeconds();
-
-            if (hours < 10) hours = '0' + hours;
-            if (minutes < 10) minutes = '0' + minutes;
-            if (seconds < 10) seconds = '0' + seconds;
-
-            let currentTime = hours + ':' + minutes + ':' + seconds;
-
-            document.getElementById('time').innerHTML = currentTime;
-        }
-
-
-        setInterval(displayTime, 1000);
-    </script>
 </head>
 
 <body style="padding: 0; margin: 0;">
@@ -64,18 +46,103 @@
             <button id="buttonn">
                 <p id="p">Якнопка</p>
             </button>
-            <p>Поточний час: <span id="time"></span></p>
-            <p>Сьогодні <?php echo date('d.m.Y'); ?></p>
+
+
+            <!-- <button id="load-joke">Get a Joke</button> -->
+            <div id="joke">Click the button to see a random joke!</div>
+
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th data-sort="name">Name</th>
+                <th data-sort="affiliation">Affiliation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Дані з сервера будуть додаватись сюди динамічно -->
+        </tbody>
+    </table>
+
+    <script>
+        // Функція для завантаження даних з сервера
+        function loadData() {
+            $.ajax({
+                url: "http://lab.vntu.org/api-server/lab7.php",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    // Очищуємо вміст таблиці перед завантаженням нових даних
+                    $("#data-table tbody").empty();
+
+                    // Проходимося по кожному елементу масиву data та додаємо рядки до таблиці
+                    $.each(data, function(index, item) {
+                        let row = `<tr>
+                            <td>${item.name}</td>
+                            <td>${item.affiliation}</td>
+                            <td>${item.rank}</td>
+                            <td>${item.location}</td>
+                        </tr>`;
+                        $("#data-table tbody").append(row);
+                    });
+                },
+                error: function() {
+                    alert("Failed to load data from server.");
+                }
+            });
+        }
+
+        // Функція для сортування таблиці
+        function sortTable(parameter) {
+    let rows = $('#data-table tbody tr').get();
+
+    rows.sort(function(a, b) {
+        // Вибір потрібної колонки: 0 для 'name', 1 для 'email' чи іншого поля
+        let columnIndex = parameter === 'name' ? 0 : 1;
+
+        // Порівняння тексту з відповідних комірок
+        let A = $(a).children('td').eq(columnIndex).text();
+        let B = $(b).children('td').eq(columnIndex).text();
+
+        return A.localeCompare(B); // Використання вбудованого методу для сортування
+    });
+
+    // Додаємо відсортовані рядки назад до таблиці
+    $.each(rows, function(index, row) {
+        $('#data-table').children('tbody').append(row);
+    });
+    }
+
+        // Виконується після завантаження сторінки
+        $(document).ready(function() {
+            // Завантаження даних при першому завантаженні сторінки
+            loadData();
+
+            // Оновлення таблиці при натисканні на кнопку
+            $('#refresh').click(function() {
+                loadData();
+            });
+
+            // Сортування при натисканні на заголовки таблиці
+            $('th[data-sort]').click(function() {
+                let sortParameter = $(this).data('sort');
+                sortTable(sortParameter);
+            });
+        });
+    </script>
+
 
         </div>
         <div style="width: 20%;">
 
             <div style="display: flex; margin-top: 6%; height: 88%; background-color: #f0f0f0;
     border: 2px solid #ccc; margin-right: 2%; border-radius: 25px;">
-    <div style="margin-top: 5%; margin-left: 5%; width: 40%; height: 13%; background-color: #30A61D; border-radius: 20px;">
-
+    <div style="margin-top: 5%; margin-left: 5%; width: 40%; height: 13%; background-color: #30A61D;
+     border-radius: 20px; text-align: center;
+            line-height: 50px;" id="load-joke">
+Get a joke
     </div>
-    <div style="margin-top: 5%; margin-left: 10%; width: 40%; height: 13%; background-color: #30A61D; border-radius: 20px;"></div>
+    <div style="margin-top: 5%; margin-left: 10%; width: 40%; height: 13%; background-color: #30A61D;
+     border-radius: 20px; text-align: center;line-height: 50px;" id="refresh">Update table</div>
 
 
 
@@ -98,6 +165,34 @@
             <img src="../assets/robota.png" width="25%" style="margin: 0; padding: 0;">
         </div>
     </footer>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#load-joke').click(function() {
+                $.ajax({
+                    url: 'jokes.txt',
+                    method: 'GET',
+                    cache: false,
+                    success: function(data) {
+                        // Розділяємо жарт на окремі рядки
+                        let jokes = data.split('---');
+                        
+                        // Обираємо випадковий жарт
+                        let randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+                        
+                        // Виводимо жарт на сторінку
+                        $('#joke').html(randomJoke.replace(/\n/g, '<br>'));
+                        console.log(randomJoke)
+                    },
+                    error: function() {
+                        $('#joke').text('Failed to load jokes.');
+                    }
+                });
+            });
+        });
+    </script>
+
 
 </body>
 

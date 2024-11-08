@@ -7,25 +7,6 @@
     <title>ШоТут?</title>
     <link rel="stylesheet" href="style.css" />
 
-    <script>
-        function displayTime() {
-            let now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let seconds = now.getSeconds();
-
-            if (hours < 10) hours = '0' + hours;
-            if (minutes < 10) minutes = '0' + minutes;
-            if (seconds < 10) seconds = '0' + seconds;
-
-            let currentTime = hours + ':' + minutes + ':' + seconds;
-
-            document.getElementById('time').innerHTML = currentTime;
-        }
-
-
-        setInterval(displayTime, 1000);
-    </script>
 </head>
 
 <body>
@@ -61,8 +42,6 @@
         </div>
         <div style="width: 20%; height: 100%;">
             Права колонка
-            <p>Поточний час: <span id="time"></span></p>
-            <p>Сьогодні <?php echo date('d.m.Y'); ?></p>
 
         </div>
     </div>

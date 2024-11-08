@@ -10,10 +10,13 @@
 
     $name = mysqli_real_escape_string($link, $_POST['name']);
     $email_address = mysqli_real_escape_string($link, $_POST['email']);
-    $comment = mysqli_real_escape_string($link, $_POST['comment']);
+    $question1 = mysqli_real_escape_string($link, $_POST['question1']);
+    $question2 = mysqli_real_escape_string($link, $_POST['question2']);
+    $question3 = mysqli_real_escape_string($link, $_POST['question3']);
     
 
-    $sql = "INSERT INTO persons (name, comment, email) VALUES ('$name', '$comment', '$email_address')";
+    $sql = "INSERT INTO persons (name, question1,question2,question3,
+     email, time) VALUES ('$name', '$question1','$question2','$question3', '$email_address', NOW())";
 
     if(mysqli_query($link, $sql)){
         echo "Records added successfully.";

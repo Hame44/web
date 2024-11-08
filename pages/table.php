@@ -1,3 +1,23 @@
+<?php
+// Створюємо контекст з авторизаційними заголовками
+$options = [
+    'http' => [
+        'header' => "Authorization: Basic " . base64_encode( "student:p@ssw0rd"),
+    ]
+];
+
+// Створюємо контекст потоку
+$context = stream_context_create($options);
+
+// Виконуємо запит до URL із використанням контексту
+$response = file_get_contents('http://lab.vntu.org/api-server/lab8.php', false, $context);
+
+if ($response === false) {
+    echo json_encode(['error' => 'Не вдалося отримати дані.']);
+} else {
+    echo $response; // Повертає JSON відповідь з API
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,26 +26,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>:)</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        function displayTime() {
-            let now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let seconds = now.getSeconds();
-
-            if (hours < 10) hours = '0' + hours;
-            if (minutes < 10) minutes = '0' + minutes;
-            if (seconds < 10) seconds = '0' + seconds;
-
-            let currentTime = hours + ':' + minutes + ':' + seconds;
-
-            document.getElementById('time').innerHTML = currentTime;
-        }
-
-
-        setInterval(displayTime, 1000);
-    </script>
 </head>
 
 <body>
@@ -57,8 +59,6 @@
                 <li>Два: שְׁנַיִם (Shnayim)</li>
                 <li>Три: שְׁלֹשָׁה (Shlosha)</li>
             </ol>
-            <p>Поточний час: <span id="time"></span></p>
-            <p>Сьогодні <?php echo date('d.m.Y'); ?></p>
         </div>
         <div style="width: 60%; display: flex; align-items: center; justify-content: center;">
 
@@ -89,6 +89,35 @@
         
         <div style="width: 20%;">
             Права колонка
+            <button id="load-data">Завантажити дані</button>
+    <div id="data-output"></div>
+
+    <script>
+        $(document).ready(function () {
+            $('#load-data').click(function () {
+                $.ajax({
+                    url: 'data.php', // URL до PHP-скрипту, що виконує запит
+                    method: 'GET',
+                    dataType: 'json', // Очікуємо отримати JSON
+                    success: function (data) {
+                        if (data.error) {
+                            $('#data-output').html('<p>' + data.error + '</p>');
+                        } else {
+                            let output = '<ul>';
+                            for (let item in data) {
+                                output += '<li>' + item + ': ' + data[item] + '</li>';
+                            }
+                            output += '</ul>';
+                            $('#data-output').html(output);
+                        }
+                    },
+                    error: function () {
+                        $('#data-output').html('<p>Не вдалося отримати дані.</p>');
+                    }
+                });
+            });
+        });
+    </script>
         </div>
     </div>
 
