@@ -141,6 +141,7 @@ html {
     border-radius: 20px;
     /* Заокруглені кути */
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .container2 {
